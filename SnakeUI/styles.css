@@ -1,19 +1,25 @@
 ﻿body {
-    background: rgb(212, 211, 211);
+    background: rgb(10, 10, 10);
 }
 
 .grid {
-    width: 500px;
-    height: 500px;
-    border: 1px solid black;
+    width: 510px;
+    height: 510px;
+    border: 4px double white;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
 }
 
 .grid div {
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 15px;
+}
+
+.title {
+    text-align:center;
+    color:lightskyblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .snake {
@@ -31,7 +37,13 @@
 }
 
 .cookie {
-    background: brown;
+    background-color: rgb(230,206,160);
+    border-radius: 20px;
+}
+
+
+.potion {
+    background-color: rgb(251,72,196);
     border-radius: 20px;
 }
 

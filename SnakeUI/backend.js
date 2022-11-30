@@ -8,20 +8,30 @@ let down = document.querySelector(".down");
 let right = document.querySelector(".right");
 let up = document.querySelector(".up");
 
-// width of the grid
-let width = 50;
+// width of the grid <=3
+let width = 34;
 
 // snake game features
 
 let currentIndex = 0;
 let appleIndex = 0;
 let currentSnake = [2, 1, 0];
+
+// stores three previous tails;
+let recentSnake = [width-1, width-2, width-3];
+
 let direction = 1;
 let score = 0;
 let speed = 0.9;
 let intervalTime = 0;
 let interval = 0;
+
+// random features 
 let randomPoison = 5;
+let randomCookie = 3;
+let randomPotion = 10;
+
+
 
 
 // game initiliazation
@@ -50,6 +60,7 @@ function startGame() {
     scoreDisplay.innerHTML = score;
     intervalTime = 80;
     currentSnake = [2, 1, 0];
+    recentSnake = [width - 1, width - 2, width - 3];
     currentIndex = 0;
     currentSnake.forEach((index) => squares[index].classList.add("snake"));
     interval = setInterval(moveOutcome, intervalTime);
@@ -67,12 +78,19 @@ function moveOutcome() {
 // and adding new element to beginning depending on direction 
 function moveSnake(squares) {
     let tail = currentSnake.pop();
-    console.log(tail);
     squares[tail].classList.remove("snake");
+
     currentSnake.unshift(calculateShift(squares));
+
+    console.log(recentSnake);
+    recentSnake.pop();
+    recentSnake.unshift(tail);
+
+    squares[currentSnake[0]].classList.add("snake");
     eatPoison(squares, tail);
     eatApple(squares, tail);
-    squares[currentSnake[0]].classList.add("snake");
+    eatCookie(squares, tail);
+    eatPotion(squares, tail);
 }
 
 function calculateShift(squares) {
@@ -140,31 +158,83 @@ function eatApple(squares, tail) {
     }
 }
 
+// what happens when poison is eaten
 function eatPoison(squares, tail) {
     if (squares[currentSnake[0]].classList.contains("poison")) {
         return loss();
     }
 }
 
+// when cookie is eaten
+function eatCookie(squares, tail) {
+    if (squares[currentSnake[0]].classList.contains("cookie")) {
+        squares[currentSnake[0]].classList.remove("cookie");
+        squares[currentSnake[0]].classList.remove("snake");
+        if (currentSnake.length <= 2) {
+            return loss();
+        };
+        currentSnake.shift();
+        randomApple(squares);
+        score--;
+        scoreDisplay.textContent = score;
+        clearInterval(interval);
+        intervalTime = intervalTime / speed;
+        interval = setInterval(moveOutcome, intervalTime);
+    }
+}
+
+function eatPotion(squares, tail) {
+    if (squares[currentSnake[0]].classList.contains("potion")) {
+        squares[currentSnake[0]].classList.remove("potion");
+
+        squares[recentSnake[0]].classList.add("snake");
+        squares[recentSnake[1]].classList.add("snake");
+        squares[recentSnake[2]].classList.add("snake");
+        currentSnake.push(recentSnake[0]);
+        currentSnake.push(recentSnake[1]);
+        currentSnake.push(recentSnake[2]);
+        randomApple(squares);
+        score += 3;
+        scoreDisplay.textContent = score;
+        clearInterval(interval);
+        intervalTime = intervalTime * (speed ** 3);
+        interval = setInterval(moveOutcome, intervalTime);
+    }
+}
+
+
 // picks a spot for new apple that is not occupied by the snake
 function randomApple(squares) {
-    do {
-        appleIndex = Math.floor(Math.random() * squares.length);
-    } while (squares[appleIndex].classList.contains("snake") ||
-        squares[appleIndex].classList.contains("poison"));
-    squares[appleIndex].classList.add("apple");
 
+    nextItem(1, "apple", squares);
+
+    // calculate odds
     let poisonOdds = Math.floor(Math.random() * randomPoison) + 1;
+    let cookieOdds = Math.floor(Math.random() * randomCookie) + 1;
+    let potionOdds = Math.floor(Math.random() * randomPotion) + 1;
 
-    if (poisonOdds === randomPoison) {
-        do {
-            poisonIndex = Math.floor(Math.random() * squares.length);
-        } while (squares[poisonIndex].classList.contains("snake") ||
-            squares[poisonIndex].classList.contains("apple"));
-        squares[poisonIndex].classList.add("poison");
-    }
+    nextItem(poisonOdds, "poison", squares);
 
+    nextItem(cookieOdds, "cookie", squares);
+
+    nextItem(potionOdds, "potion", squares);
 }
+
+
+// determines whether given item will appear next or not
+function nextItem(randNum, itemStr, squares) {
+    if (randNum === 1) {
+        do {
+            randIndex = Math.floor(Math.random() * squares.length);
+        } while (squares[randIndex].classList.contains("snake") ||
+            squares[randIndex].classList.contains("apple") ||
+            squares[randIndex].classList.contains("cookie") ||
+            squares[randIndex].classList.contains("potion") ||
+            squares[randIndex].classList.contains("poison"));
+        squares[randIndex].classList.add(itemStr);
+    }
+}
+
 
 // set the direction of the snake upon user key click
 function control(e) {
@@ -180,10 +250,10 @@ function control(e) {
 }
 
 // controls for mobile users
-up.addEventListener("click", () => (direction = -width));
-down.addEventListener("click", () => (direction = +width));
-left.addEventListener("click", () => (direction = -1));
-right.addEventListener("click", () => (direction = 1));
+//up.addEventListener("click", () => (direction = -width));
+//down.addEventListener("click", () => (direction = +width));
+//left.addEventListener("click", () => (direction = -1));
+//right.addEventListener("click", () => (direction = 1));
 
 // when snake hits a wall, have replay option pop up
 function replay() {
