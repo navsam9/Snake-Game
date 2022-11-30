@@ -9,7 +9,7 @@ let right = document.querySelector(".right");
 let up = document.querySelector(".up");
 
 // width of the grid <=3
-let width = 34;
+let width = 26;
 
 // snake game features
 
@@ -22,7 +22,7 @@ let recentSnake = [width-1, width-2, width-3];
 
 let direction = 1;
 let score = 0;
-let speed = 0.9;
+let speed = 0.95;
 let intervalTime = 0;
 let interval = 0;
 
@@ -58,7 +58,7 @@ function startGame() {
     randomApple(squares);
     direction = 1;
     scoreDisplay.innerHTML = score;
-    intervalTime = 80;
+    intervalTime = 90;
     currentSnake = [2, 1, 0];
     recentSnake = [width - 1, width - 2, width - 3];
     currentIndex = 0;

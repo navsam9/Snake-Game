@@ -3,17 +3,23 @@
 }
 
 .grid {
-    width: 510px;
-    height: 510px;
+    width: 520px;
+    height: 520px;
     border: 4px double white;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
 }
 
+.scoreDisplay {
+    text-align: center;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 .grid div {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
 }
 
 .title {
@@ -24,27 +30,32 @@
 
 .snake {
     background: blue;
+    border-radius: 10px;
 }
 
 .apple {
-    background: green;
-    border-radius: 20px;
+    background-image: url(images/apple.png);
+    background-repeat: no-repeat;
+    background-size: 20px;
 }
 
 .poison {
-    background: red;
-    border-radius: 20px;
+    background-image: url(images/poison.png);
+    background-repeat: no-repeat;
+    background-size: 20px;
 }
 
 .cookie {
-    background-color: rgb(230,206,160);
-    border-radius: 20px;
+    background-image: url(images/rottenApple.png);
+    background-repeat: no-repeat;
+    background-size: 20px;
 }
 
 
 .potion {
-    background-color: rgb(251,72,196);
-    border-radius: 20px;
+    background-image: url(images/potion.png);
+    background-repeat: no-repeat;
+    background-size: 20px;
 }
 
 .popup {
