@@ -30,7 +30,7 @@ let highScore = 0;
 
 // random features 
 let randomPoison = 5;
-let randomCookie = 1;
+let randomCookie = 3;
 let randomPotion = 10;
 
 
