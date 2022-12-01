@@ -22,7 +22,7 @@ let recentSnake = [width-1, width-2, width-3];
 
 let direction = 1;
 let score = 0;
-let speed = 0.95;
+let speed = 0.99;
 let intervalTime = 0;
 let interval = 0;
 
@@ -36,7 +36,7 @@ let randomPotion = 10;
 
 // game initiliazation
 document.addEventListener("DOMContentLoaded", function () {
-    document.addEventListener("keyup", control);
+    document.addEventListener("keydown", control);
     createBoard();
     startGame();
     playAgain.addEventListener("click", replay);
@@ -58,7 +58,7 @@ function startGame() {
     randomApple(squares);
     direction = 1;
     scoreDisplay.innerHTML = score;
-    intervalTime = 90;
+    intervalTime = 75;
     currentSnake = [2, 1, 0];
     recentSnake = [width - 1, width - 2, width - 3];
     currentIndex = 0;
@@ -158,6 +158,12 @@ function eatApple(squares, tail) {
     }
 }
 
+function nextFibNumber(n) {
+    let x1 = 0.5 * (n + Math.sqrt(5 * (n ** 2) + 4))
+    let x2 = 0.5 * (n + Math.sqrt(5 * (n ** 2) - 4))
+    return Number.isInteger(x1) ? x1 : x2;
+;}
+
 // what happens when poison is eaten
 function eatPoison(squares, tail) {
     if (squares[currentSnake[0]].classList.contains("poison")) {
@@ -238,13 +244,13 @@ function nextItem(randNum, itemStr, squares) {
 
 // set the direction of the snake upon user key click
 function control(e) {
-    if (e.keyCode === 39) {
+    if (e.keyCode === 39 && direction != -1) {
         direction = 1;
-    } else if (e.keyCode === 38) {
+    } else if (e.keyCode === 38 && direction != width) {
         direction = -width;
-    } else if (e.keyCode === 37) {
+    } else if (e.keyCode === 37 && direction != 1) {
         direction = -1;
-    } else if (e.keyCode === 40) {
+    } else if (e.keyCode === 40 && direction != -width) {
         direction = +width;
     }
 }

@@ -1,11 +1,14 @@
 ﻿body {
-    background: rgb(10, 10, 10);
+/*    background: url(images/wallpaper.png);
+    background-repeat: round;*/
+
+    background-color: rgb(15,15,15);
 }
 
 .grid {
     width: 520px;
     height: 520px;
-    border: 4px double white;
+    border: 2.5px ridge white;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
@@ -35,27 +38,23 @@
 
 .apple {
     background-image: url(images/apple.png);
-    background-repeat: no-repeat;
-    background-size: 20px;
+    background-repeat: round;
 }
 
 .poison {
     background-image: url(images/poison.png);
-    background-repeat: no-repeat;
-    background-size: 20px;
+    background-repeat: round;
 }
 
 .cookie {
     background-image: url(images/rottenApple.png);
-    background-repeat: no-repeat;
-    background-size: 20px;
+    background-repeat: round;
 }
 
 
 .potion {
     background-image: url(images/potion.png);
-    background-repeat: no-repeat;
-    background-size: 20px;
+    background-repeat: round;
 }
 
 .popup {
