@@ -14,11 +14,18 @@
     flex-wrap: wrap;
 }
 
-.scoreDisplay {
-    text-align: center;
+.scores {
     color: white;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-bottom: 0.5em;
+    display: flex;
+    justify-content: center;
 }
+
+.scoreDisplay {
+    margin-right: 300px;
+}
+
 
 .grid div {
     width: 20px;
@@ -26,9 +33,29 @@
 }
 
 .title {
-    text-align:center;
-    color:lightskyblue;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    color: lightskyblue;
+    font-family: 'Courier New', monospace;
+    margin: 0.3em;
+}
+
+.rules {
+    color: white;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.rules div {
+    margin-top: 10px;
+    margin-left: 80px;
+}
+.rules img {
+    
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .snake {

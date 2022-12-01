@@ -3,6 +3,7 @@ let grid = document.querySelector(".grid");
 let popup = document.querySelector(".popup");
 let playAgain = document.querySelector(".playAgain");
 let scoreDisplay = document.querySelector(".scoreDisplay");
+let highScoreDisplay = document.querySelector(".highScoreDisplay");
 let left = document.querySelector(".left");
 let down = document.querySelector(".down");
 let right = document.querySelector(".right");
@@ -25,10 +26,11 @@ let score = 0;
 let speed = 0.99;
 let intervalTime = 0;
 let interval = 0;
+let highScore = 0;
 
 // random features 
 let randomPoison = 5;
-let randomCookie = 3;
+let randomCookie = 1;
 let randomPotion = 10;
 
 
@@ -58,6 +60,7 @@ function startGame() {
     randomApple(squares);
     direction = 1;
     scoreDisplay.innerHTML = score;
+    highScoreDisplay.innerHTML = highScore
     intervalTime = 75;
     currentSnake = [2, 1, 0];
     recentSnake = [width - 1, width - 2, width - 3];
@@ -113,33 +116,35 @@ function calculateShift(squares) {
     }
     // snake hits itself
     if (squares[shift].classList.contains("snake")) {
-        return loss();
+        return loss("Don't eat yourself!");
     }
     return shift;
 }
 
 // displays popup and resets games features to prepare for new game
-function loss() {
-    alert("you hit something");
+function loss(msg) {
+    alert(msg);
     popup.style.display = "flex";
+    highScore = Math.max(highScore, score)
     score = 0;
     return clearInterval(interval);
 }
 
 // checks if snake hits a border
-function checkForHits(squares) {
-    if (
-        //(currentSnake[0] + width >= width * width && direction === width) ||
-        //(currentSnake[0] % width === width - 1 && direction === 1) ||
-        //(currentSnake[0] % width === 0 && direction === -1) ||
-        //(currentSnake[0] - width <= 0 && direction === -width) ||
-        squares[currentSnake[0] + direction].classList.contains("snake")
-    ) {
-        return true;
-    } else {
-        return false;
-    }
-}
+//function checkForHits(squares) {
+//    if (
+//        //(currentSnake[0] + width >= width * width && direction === width) ||
+//        //(currentSnake[0] % width === width - 1 && direction === 1) ||
+//        //(currentSnake[0] % width === 0 && direction === -1) ||
+//        //(currentSnake[0] - width <= 0 && direction === -width) ||
+//        //squares[currentSnake[0] + direction].classList.contains("snake")
+//        fals
+//    ) {
+//        return true;
+//    } else {
+//        return false;
+//    }
+//}
 
 // when head of snake is on an apple set a new random apple
 // and increment length of snake
@@ -152,6 +157,7 @@ function eatApple(squares, tail) {
         randomApple(squares);
         score++;
         scoreDisplay.textContent = score;
+        highScoreDisplay.textContent = Math.max(highScore,score)
         clearInterval(interval);
         intervalTime = intervalTime * speed;
         interval = setInterval(moveOutcome, intervalTime);
@@ -167,7 +173,7 @@ function nextFibNumber(n) {
 // what happens when poison is eaten
 function eatPoison(squares, tail) {
     if (squares[currentSnake[0]].classList.contains("poison")) {
-        return loss();
+        return loss("You shouldn't eat that!");
     }
 }
 
@@ -177,12 +183,13 @@ function eatCookie(squares, tail) {
         squares[currentSnake[0]].classList.remove("cookie");
         squares[currentSnake[0]].classList.remove("snake");
         if (currentSnake.length <= 2) {
-            return loss();
+            return loss("Too many rotten apples!");
         };
         currentSnake.shift();
         randomApple(squares);
         score--;
         scoreDisplay.textContent = score;
+        highScoreDisplay.textContent = Math.max(highScore, score)
         clearInterval(interval);
         intervalTime = intervalTime / speed;
         interval = setInterval(moveOutcome, intervalTime);
@@ -202,6 +209,7 @@ function eatPotion(squares, tail) {
         randomApple(squares);
         score += 3;
         scoreDisplay.textContent = score;
+        highScoreDisplay.textContent = Math.max(highScore, score)
         clearInterval(interval);
         intervalTime = intervalTime * (speed ** 3);
         interval = setInterval(moveOutcome, intervalTime);
