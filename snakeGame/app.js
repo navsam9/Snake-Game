@@ -159,11 +159,11 @@ function eatPoison(squares) {
 // when cookie is eaten, removes head of snake
 function eatCookie(squares) {
     squares[currentSnake[0]].classList.remove("snake");
-    squares[currentSnake[0]].classList.remove("cookie");
+    let tail = currentSnake.pop();
+    squares[tail].classList.remove("snake");
     if (currentSnake.length <= 1) {
         return loss("Too many rotten apples!");
     };
-    currentSnake.shift();
 
     // update game features
     score--;
