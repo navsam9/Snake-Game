@@ -6,7 +6,8 @@ A snake game developed in JavaScript, HTML and CSS. Can be played at https://htm
 
 Eating an apple increments the snake length. Eating a rotten apple decrements the snake length.
 Eating a potion increases snake length by 3. Eating poison ends the game.
-Any time an item is eaten, new items appear with a given probability.
+
+Any time an item is eaten, the snake's speed is slightly increased and new items appear with a given probability.
 Apple appears with probability 1, rotten apple with probability 1/3,
 poison with probability 1/5 and potion with probability 1/7.
 
