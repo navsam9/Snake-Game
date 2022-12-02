@@ -156,11 +156,11 @@ function eatPoison(squares) {
     return loss("You shouldn't eat that!");
 }
 
-// when cookie is eaten, removes head of snake
+// when cookie is eaten, removes tail of snake
 function eatCookie(squares) {
-    squares[currentSnake[0]].classList.remove("snake");
     let tail = currentSnake.pop();
     squares[tail].classList.remove("snake");
+    squares[currentSnake[0]].classList.remove("cookie");
     if (currentSnake.length <= 1) {
         return loss("Too many rotten apples!");
     };
