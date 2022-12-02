@@ -28,6 +28,9 @@ let intervalTime = 0;
 let interval = 0;
 let highScore = 0;
 
+
+let movedFromLastPress = true;
+
 // random features 
 let randomPoison = 5;
 let randomCookie = 3;
@@ -94,6 +97,7 @@ function moveSnake(squares) {
     eatApple(squares, tail);
     eatCookie(squares, tail);
     eatPotion(squares, tail);
+    movedFromLastPress = true;
 }
 
 function calculateShift(squares) {
@@ -252,14 +256,17 @@ function nextItem(randNum, itemStr, squares) {
 
 // set the direction of the snake upon user key click
 function control(e) {
-    if (e.keyCode === 39 && direction != -1) {
-        direction = 1;
-    } else if (e.keyCode === 38 && direction != width) {
-        direction = -width;
-    } else if (e.keyCode === 37 && direction != 1) {
-        direction = -1;
-    } else if (e.keyCode === 40 && direction != -width) {
-        direction = +width;
+    if (movedFromLastPress) {
+        movedFromLastPress = false;
+        if (e.keyCode === 39 && direction != -1) {
+            direction = 1;
+        } else if (e.keyCode === 38 && direction != width) {
+            direction = -width;
+        } else if (e.keyCode === 37 && direction != 1) {
+            direction = -1;
+        } else if (e.keyCode === 40 && direction != -width) {
+            direction = +width;
+        }
     }
 }
 
