@@ -1,6 +1,6 @@
 ﻿// UI Components
 let grid = document.querySelector(".grid");
-let popup = document.querySelector(".popup");
+let popup = document.querySelector(".playAgain");
 let playAgain = document.querySelector(".playAgain");
 let scoreDisplay = document.querySelector(".scoreDisplay");
 let highScoreDisplay = document.querySelector(".highScoreDisplay");
@@ -23,7 +23,7 @@ let recentSnake = [width-1, width-2, width-3];
 
 let direction = 1;
 let score = 0;
-let speed = 0.99;
+let speed = 0.98;
 let intervalTime = 0;
 let interval = 0;
 let highScore = 0;
@@ -64,7 +64,7 @@ function startGame() {
     direction = 1;
     scoreDisplay.innerHTML = score;
     highScoreDisplay.innerHTML = highScore
-    intervalTime = 75;
+    intervalTime = 100;
     currentSnake = [2, 1, 0];
     recentSnake = [width - 1, width - 2, width - 3];
     currentIndex = 0;
@@ -127,7 +127,6 @@ function calculateShift(squares) {
 
 // displays popup and resets games features to prepare for new game
 function loss(msg) {
-    alert(msg);
     popup.style.display = "flex";
     highScore = Math.max(highScore, score)
     score = 0;
